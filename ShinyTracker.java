@@ -21,6 +21,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 /* 
 Joseph Nelson
 This is a simple program that goes along with a pokemon game
@@ -43,8 +45,8 @@ class Pokemon {
 	public int getCount(){
 		return count;
 	}
-	public void setCount(int count){
-		this.count = count + 1;
+	public void setCount(){
+		this.count = this.count + 1;
 	}
 	public String getIsShiny(){
 		return isShiny;
@@ -69,8 +71,8 @@ class Pokemon {
 }
 
 
-class ShinyFrame extends JFrame {
-
+class ShinyFrame extends JFrame implements ActionListener {
+	private JFrame f = new JFrame();
 	public void configureMenu(){
 		JMenuBar bar = new JMenuBar();
 		JMenu mnuFile = new JMenu("File");
@@ -84,6 +86,14 @@ class ShinyFrame extends JFrame {
 		bar.add(mnuFile);
 		setJMenuBar(bar);
 	}
+	public void actionPerformed(ActionEvent e){ 
+		JButton source = (JButton)(e.getSource());
+		if(source.getText().equals("Not Shiny")){
+			
+		} else if(source.getText().equals("Shiny")) {
+			JOptionPane.showMessageDialog(f,"It is Shiny!");
+		}
+	}
 	public void configureUI() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100,100,500,500);
@@ -94,8 +104,13 @@ class ShinyFrame extends JFrame {
 		c.add(pan,BorderLayout.CENTER);
 		JPanel panSouth = new JPanel();
 		panSouth.setLayout(new FlowLayout());
-		JLabel lblPointSize = new JLabel("Point Size");
+		JButton add = new JButton("Not Shiny");
+		JButton done = new JButton("Shiny");
+		panSouth.add(add);
+		panSouth.add(done);
 		c.add(panSouth,BorderLayout.SOUTH);
+		add.addActionListener(this);
+		done.addActionListener(this);
 		configureMenu();
 	}
 	public ShinyFrame() {
